@@ -1,101 +1,250 @@
-import Image from "next/image";
+'use client';
+import React, { useRef, useState } from 'react';
+import Image from 'next/image';
+import { FaMapMarkerAlt, FaBars, FaTimes } from 'react-icons/fa'; // Import des icônes
+import Pagination from './pagination';
+import Categories from './categorieSection';
+import useOutsideClick from '@/hook/outSideClick'; // Import du hook personnalisé
+
+const productsData = [
+  // Exemples de produits
+  {
+    id: 1,
+    title: 'Produit 1',
+    image: '',
+    location: 'Bordeaux',
+    price: 9.99,
+    category: 'electronique',
+    date: '2024-09-20',
+  },
+  {
+    id: 2,
+    title: 'Produit 2',
+    image: '',
+    location: 'Paris',
+    price: 19.99,
+    category: 'mode-homme',
+    date: '2024-09-21',
+  },
+  {
+    id: 3,
+    title: 'Produit 3',
+    image: '',
+    location: 'Marseille',
+    price: 29.99,
+    category: 'mode-femme',
+    date: '2024-09-22',
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const itemsPerPage = 45;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState('Tous');
+  const [selectedLocation, setSelectedLocation] = useState('Tous');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [sortOption, setSortOption] = useState(''); // État pour le tri
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // État pour la sidebar
+  const sidebarRef = useRef(null); // Référence à la sidebar
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Utiliser la fonction pour fermer la sidebar en cas de clic à l'extérieur
+  useOutsideClick(sidebarRef, () => setIsSidebarOpen(false));
+
+  const filteredProducts = productsData.filter(product => {
+    const matchesCategory = selectedCategory === 'Tous' || product.category === selectedCategory;
+    const matchesLocation = selectedLocation === 'Tous' || product.location === selectedLocation;
+    const matchesPrice = (minPrice === '' || product.price >= parseFloat(minPrice)) &&
+      (maxPrice === '' || product.price <= parseFloat(maxPrice));
+    return matchesCategory && matchesLocation && matchesPrice;
+  });
+
+  // Trier les produits en fonction de l'option choisie
+  const sortedProducts = filteredProducts.sort((a, b) => {
+    if (sortOption === 'Plus récent') {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    } else if (sortOption === 'Plus ancien') {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    } else if (sortOption === 'Prix croissant') {
+      return a.price - b.price;
+    } else if (sortOption === 'Prix décroissant') {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  return (
+    <main className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-16">
+        <div className="container mt-10 mx-auto text-center">
+          <h1 className="text-4xl font-bold">Bienvenue sur AnnonceCôte</h1>
+          <p className="mt-4 text-lg">
+            Trouvez les meilleures offres {`d'achats`} et de ventes en ligne
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      {/* Section Catégories */}
+      <Categories />
+
+      {/* Bouton pour ouvrir la sidebar */}
+      <div className="container mx-auto my-4">
+        <button
+          onClick={toggleSidebar}
+          className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <FaBars className="mr-2" /> Filtres et Tri
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <div
+        ref={sidebarRef} // Utiliser la référence sur l'élément de la sidebar
+        className={`fixed top-0 left-0 w-80 h-full bg-white shadow-md transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+      >
+        <div className="p-4">
+
+          {/* Filtre par catégorie */}
+          <div>
+            <label htmlFor="category" className="block mt-20 text-sm font-medium text-gray-700">
+              Catégorie
+            </label>
+            <select
+              id="category"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            >
+          <option value="Tous">Sélectionnez une catégorie</option>
+          <option value="immobilier">Immobilier</option>
+          <option value="vehicule">Véhicules</option>
+          <option value="electronique">Electronique</option>
+          <option value="electromenager">Electroménager</option>
+          <option value="mode-homme">Mode Homme</option>
+          <option value="mode-femme">Mode Femme</option>
+          <option value="mode-enfant">Mode Enfant</option>
+          <option value="autres">Autres</option>
+            </select>
+          </div>
+
+          {/* Filtre par localisation */}
+          <div className="mt-4">
+            <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+              Localisation
+            </label>
+            <select
+              id="location"
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            >
+              <option value="Tous">Tous</option>
+              <option value="Bordeaux">Bordeaux</option>
+              <option value="Paris">Paris</option>
+              <option value="Marseille">Marseille</option>
+            </select>
+          </div>
+
+          {/* Filtre par prix min et max */}
+          <div className="mt-4">
+            <label htmlFor="min-price" className="block text-sm font-medium text-gray-700">
+              Prix Min
+            </label>
+            <input
+              type="number"
+              id="min-price"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Min"
+            />
+          </div>
+
+          <div className="mt-4">
+            <label htmlFor="max-price" className="block text-sm font-medium text-gray-700">
+              Prix Max
+            </label>
+            <input
+              type="number"
+              id="max-price"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+              placeholder="Max"
+            />
+          </div>
+
+          {/* Tri des résultats */}
+          <div className="mt-10">
+            <label htmlFor="sort" className="block text-sm font-medium text-gray-700">
+              Trier par
+            </label>
+            <select
+              id="sort"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+            >
+              <option value="">Sélectionnez une option</option>
+              <option value="Plus récent">Plus récent</option>
+              <option value="Plus ancien">Plus ancien</option>
+              <option value="Prix croissant">Prix croissant</option>
+              <option value="Prix décroissant">Prix décroissant</option>
+            </select>
+          </div>
+          <button
+            onClick={toggleSidebar}
+            className="text-gray-500 mb-4 mt-10 flex items-center"
+          >
+            <FaTimes className="mr-5" /> Fermer
+          </button>
+        </div>
+      </div>
+
+      {/* Résultats des produits */}
+      <section className="container mx-auto my-8">
+        <h2 className="text-2xl text-center font-bold mb-4">Annonces</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {currentItems.map((product) => (
+            <div key={product.id} className="bg-white shadow-md rounded-lg p-4">
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={500}
+                height={500}
+                className="w-full h-48 object-cover mb-4"
+              />
+              <h3 className="text-lg font-bold mb-2">{product.title}</h3>
+              <p className="text-gray-500 mb-1">
+                <FaMapMarkerAlt className="inline mr-1" />
+                {product.location}
+              </p>
+              <p className="text-green-500 font-bold mb-2">{product.price} €</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </section>
+    </main>
   );
 }
