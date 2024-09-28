@@ -1,13 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import SearchBar from './Search';
+import useOutsideClick from '@/hook/outSideClick';
 import { FaHome, FaUser, FaPlus, FaCar, FaBuilding, FaRegLightbulb, FaChevronDown, FaLaptop, FaTshirt, FaChild, FaEllipsisH, FaCog, FaSignInAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const menu = useRef(null);
+  const menuprof = useRef(null) 
+  // Utiliser la fonction pour fermer le menu deroulant en cas de clic à l'extérieur
+  useOutsideClick(menu, () => setIsCategoriesOpen(false));
+  useOutsideClick(menuprof, () => setIsProfileOpen(false));
 
   const toggleCategories = () => setIsCategoriesOpen((prev) => !prev);
   const toggleProfile = () => setIsProfileOpen((prev) => !prev);
@@ -34,7 +40,7 @@ const Navbar = () => {
               <FaRegLightbulb className="mr-1" /> Catégories <FaChevronDown className="ml-1" />
             </button>
             {isCategoriesOpen && (
-              <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
+              <div ref={menu} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
                 <Link href="/category/immobilier" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaBuilding className="mr-2" /> Immobilier
                 </Link>
@@ -67,7 +73,7 @@ const Navbar = () => {
               <FaUser className="mr-1" /> Mon Compte <FaChevronDown className="ml-1" />
             </button>
             {isProfileOpen && (
-              <div className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
+              <div ref={menuprof} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
                 <Link href="/profile/view" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaUser className="mr-2" /> Voir Profil
                 </Link>

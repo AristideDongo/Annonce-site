@@ -1,38 +1,44 @@
-// components/Categories.tsx
-'use client';
-import Image from 'next/image';
+import React from 'react';
+import CategoryCard from '@/components/Card/CategoryCard';
 
-const Categories = () => {
-  // Définir les catégories avec leurs images correspondantes
-  const categories = [
-    { name: 'Électronique', image: '/images/electronique.jpg' },
-    { name: 'Mode Homme', image: '/images/homme.webp' },
-    { name: 'Mode Femme', image: '/images/mode-femme.jpg' },
-    { name: 'Mode Enfant', image: '/images/mode-enfant.jpg' },
-    { name: 'Autres', image: '/images/autres.jpg' },
-  ];
+const categories = [
+  {
+    title: 'Électronique',
+    imageUrl: '/images/category/electronique.jpg'
+  },
+  {
+    title: 'Mode Homme',
+    imageUrl: '/images/category/homme.jpg'
+  },
+  {
+    title: 'Mode Femme',
+    imageUrl: '/images/category/femme.jpg'
+  },
+  {
+    title: 'Mode Enfant',
+    imageUrl: '/images/category/enfant.jpg'
+  },
+  {
+    title: 'Immobilier',
+    imageUrl: '/images/category/immobilier.jpg'
+  },
+];
 
+const PopularCategories: React.FC = () => {
   return (
-    <section className="py-12">
-      <div className="container mx-auto text-center">
-        <h2 className="text-2xl font-bold mb-8">Catégories populaires</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {categories.map((category) => (
-            <div key={category.name} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-              <Image
-                src={category.image}
-                alt={category.name}
-                width={150}
-                height={150}
-                className="mx-auto"
-              />
-              <h3 className="mt-4 text-lg font-semibold">{category.name}</h3>
-            </div>
-          ))}
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold text-center mb-8">Catégories Populaires</h2>
+      <div className="flex justify-between space-x-6 overflow-x-auto">
+        {categories.map((category, index) => (
+          <CategoryCard
+            key={index}
+            title={category.title}
+            imageUrl={category.imageUrl}
+          />
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Categories;
+export default PopularCategories;
