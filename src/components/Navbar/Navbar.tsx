@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import SearchBar from './Search';
 import useOutsideClick from '@/hook/outSideClick';
-import { FaHome, FaUser, FaPlus, FaCar, FaBuilding, FaRegLightbulb, FaChevronDown, FaLaptop, FaTshirt, FaChild, FaEllipsisH, FaCog, FaSignInAlt } from 'react-icons/fa';
+import { FaHome, FaUser, FaPlus, FaCar, FaBuilding, FaRegLightbulb, FaChevronDown, FaLaptop, FaTshirt, FaChild, FaEllipsisH, FaCog, FaSignInAlt, FaTags } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
           </Link>
           <div className="relative">
             <button className="text-gray-300 hover:text-white focus:outline-none flex items-center" onClick={toggleCategories}>
-              <FaRegLightbulb className="mr-1" /> Catégories <FaChevronDown className="ml-1" />
+              <FaTags className="mr-1" /> Catégories <FaChevronDown className="ml-1" />
             </button>
             {isCategoriesOpen && (
               <div ref={menu} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">

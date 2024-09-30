@@ -3,7 +3,7 @@ export const locations = [
     { value: 'ci-abidjan,abobo-baoule', label: 'CI,Abidjan,Abobo-Baoulé' },
     { value: 'ci-abidjan,adjame', label: 'CI,Abidjan,Adjamé' },
     { value: 'ci-abidjan,attecoube', label: 'CI,Abidjan,Attecoubé' },
-    { value: 'ci-abidjan,cocody', label: 'CI,Abidjan, Cocody' },
+    { value: 'ci-abidjan,cocody', label: 'CI,Abidjan,Cocody' },
     { value: 'ci-abidjan,cocody-2-plateaux', label: 'CI,Abidjan,Cocody - 2 Plateaux' },
     { value: 'ci-abidjan,cocody-angre', label: 'CI,Abidjan,Cocody - Angré' },
     { value: 'ci-abidjan,koumassi', label: 'CI,Abidjan,Koumassi' },

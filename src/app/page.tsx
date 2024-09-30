@@ -1,10 +1,12 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaMapMarkerAlt, FaBars, FaTimes } from 'react-icons/fa'; // Import des icônes
 import Pagination from './pagination';
 import Categories from './categorieSection';
 import useOutsideClick from '@/hook/outSideClick'; // Import du hook personnalisé
+
 
 const productsData = [
   // Exemples de produits
@@ -12,7 +14,7 @@ const productsData = [
     id: 1,
     title: 'Produit 1',
     image: '',
-    location: 'Bordeaux',
+    location: 'CI,Abidjan,Cocody',
     price: 9.99,
     category: 'electronique',
     date: '2024-09-20',
@@ -41,7 +43,7 @@ export default function Home() {
   const itemsPerPage = 45;
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('Tous');
-  const [selectedLocation, setSelectedLocation] = useState('Tous');
+  // const [selectedLocation, setSelectedLocation] = useState('Tous');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [sortOption, setSortOption] = useState(''); // État pour le tri
@@ -57,10 +59,9 @@ export default function Home() {
 
   const filteredProducts = productsData.filter(product => {
     const matchesCategory = selectedCategory === 'Tous' || product.category === selectedCategory;
-    const matchesLocation = selectedLocation === 'Tous' || product.location === selectedLocation;
     const matchesPrice = (minPrice === '' || product.price >= parseFloat(minPrice)) &&
       (maxPrice === '' || product.price <= parseFloat(maxPrice));
-    return matchesCategory && matchesLocation && matchesPrice;
+    return matchesCategory && matchesPrice;
   });
 
   // Trier les produits en fonction de l'option choisie
@@ -113,14 +114,17 @@ export default function Home() {
       {/* Sidebar */}
       <div
         ref={sidebarRef} // Utiliser la référence sur l'élément de la sidebar
-        className={`fixed top-0 left-0 w-80 h-full bg-white shadow-md transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed top-0 left-0 w-80 h-full bg-white shadow-md transform transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div className="p-4">
-
           {/* Filtre par catégorie */}
           <div>
-            <label htmlFor="category" className="block mt-20 text-sm font-medium text-gray-700">
+            <label
+              htmlFor="category"
+              className="block mt-20 text-sm font-medium text-gray-700"
+            >
               Catégorie
             </label>
             <select
@@ -129,39 +133,24 @@ export default function Home() {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             >
-          <option value="Tous">Sélectionnez une catégorie</option>
-          <option value="immobilier">Immobilier</option>
-          <option value="vehicule">Véhicules</option>
-          <option value="electronique">Electronique</option>
-          <option value="electromenager">Electroménager</option>
-          <option value="mode-homme">Mode Homme</option>
-          <option value="mode-femme">Mode Femme</option>
-          <option value="mode-enfant">Mode Enfant</option>
-          <option value="autres">Autres</option>
-            </select>
-          </div>
-
-          {/* Filtre par localisation */}
-          <div className="mt-4">
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-              Localisation
-            </label>
-            <select
-              id="location"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            >
-              <option value="Tous">Tous</option>
-              <option value="Bordeaux">Bordeaux</option>
-              <option value="Paris">Paris</option>
-              <option value="Marseille">Marseille</option>
+              <option value="Tous">Sélectionnez une catégorie</option>
+              <option value="immobilier">Immobilier</option>
+              <option value="vehicule">Véhicules</option>
+              <option value="electronique">Electronique</option>
+              <option value="electromenager">Electroménager</option>
+              <option value="mode-homme">Mode Homme</option>
+              <option value="mode-femme">Mode Femme</option>
+              <option value="mode-enfant">Mode Enfant</option>
+              <option value="autres">Autres</option>
             </select>
           </div>
 
           {/* Filtre par prix min et max */}
           <div className="mt-4">
-            <label htmlFor="min-price" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="min-price"
+              className="block text-sm font-medium text-gray-700"
+            >
               Prix Min
             </label>
             <input
@@ -175,7 +164,10 @@ export default function Home() {
           </div>
 
           <div className="mt-4">
-            <label htmlFor="max-price" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="max-price"
+              className="block text-sm font-medium text-gray-700"
+            >
               Prix Max
             </label>
             <input
@@ -190,7 +182,10 @@ export default function Home() {
 
           {/* Tri des résultats */}
           <div className="mt-10">
-            <label htmlFor="sort" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="sort"
+              className="block text-sm font-medium text-gray-700"
+            >
               Trier par
             </label>
             <select
@@ -220,21 +215,25 @@ export default function Home() {
         <h2 className="text-2xl text-center font-bold mb-4">Annonces</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {currentItems.map((product) => (
-            <div key={product.id} className="bg-white shadow-md rounded-lg p-4">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={500}
-                height={500}
-                className="w-full h-48 object-cover mb-4"
-              />
-              <h3 className="text-lg font-bold mb-2">{product.title}</h3>
-              <p className="text-gray-500 mb-1">
-                <FaMapMarkerAlt className="inline mr-1" />
-                {product.location}
-              </p>
-              <p className="text-green-500 font-bold mb-2">{product.price} €</p>
-            </div>
+            <Link key={product.id} href={`/detail/${product.id}`} passHref>
+              <div className="bg-white shadow-md rounded-lg p-4 cursor-pointer">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  width={500}
+                  height={500}
+                  className="w-full h-48 object-cover mb-4"
+                />
+                <h3 className="text-lg font-bold mb-2">{product.title}</h3>
+                <p className="text-gray-500 mb-1">
+                  <FaMapMarkerAlt className="inline mr-1" />
+                  {product.location}
+                </p>
+                <p className="text-green-500 font-bold mb-2">
+                  {product.price} €
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
 
