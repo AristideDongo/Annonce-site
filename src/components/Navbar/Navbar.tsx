@@ -11,6 +11,10 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const menu = useRef(null);
   const menuprof = useRef(null) 
+  const menuClose = () => {
+    setIsCategoriesOpen(false);
+    setIsProfileOpen(false);
+  }
   // Utiliser la fonction pour fermer le menu deroulant en cas de clic à l'extérieur
   useOutsideClick(menu, () => setIsCategoriesOpen(false));
   useOutsideClick(menuprof, () => setIsProfileOpen(false));
@@ -41,28 +45,28 @@ const Navbar = () => {
             </button>
             {isCategoriesOpen && (
               <div ref={menu} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
-                <Link href="/category/immobilier" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/immobilier" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaBuilding className="mr-2" /> Immobilier
                 </Link>
-                <Link href="/category/vehicules" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/vehicules" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaCar className="mr-2" /> Véhicules
                 </Link>
-                <Link href="/category/electromenager" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/electromenager" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaRegLightbulb className="mr-2" /> Électroménager
                 </Link>
-                <Link href="/category/electronique" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/electronique" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaLaptop className="mr-2" /> Électronique
                 </Link>
-                <Link href="/category/homme" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/homme" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaTshirt className="mr-2" /> Mode Homme
                 </Link>
-                <Link href="/category/femme" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/femme" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaTshirt className="mr-2" /> Mode Femme
                 </Link>
-                <Link href="/category/enfant" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/enfant" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaChild className="mr-2" /> Mode Enfant
                 </Link>
-                <Link href="/category/autres" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/autres" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaEllipsisH className="mr-2" /> Autres
                 </Link>
               </div>
@@ -74,13 +78,13 @@ const Navbar = () => {
             </button>
             {isProfileOpen && (
               <div ref={menuprof} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
-                <Link href="/profile/view" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/profile/view" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaUser className="mr-2" /> Voir Profil
                 </Link>
-                <Link href="/profile/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/profile/settings" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaCog className="mr-2" /> Paramètres
                 </Link>
-                <Link href="/login" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/login" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaSignInAlt className="mr-2" /> Se connecter
                 </Link>
               </div>

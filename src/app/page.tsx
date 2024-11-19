@@ -2,42 +2,12 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaMapMarkerAlt, FaBars, FaTimes } from 'react-icons/fa'; // Import des icônes
+import { FaMapMarkerAlt, FaBars } from 'react-icons/fa';
 import Pagination from './pagination';
 import Categories from './categorieSection';
-import useOutsideClick from '@/hook/outSideClick'; // Import du hook personnalisé
-
-
-const productsData = [
-  // Exemples de produits
-  {
-    id: 1,
-    title: 'Produit 1',
-    image: '',
-    location: 'CI,Abidjan,Cocody',
-    price: 9.99,
-    category: 'electronique',
-    date: '2024-09-20',
-  },
-  {
-    id: 2,
-    title: 'Produit 2',
-    image: '',
-    location: 'Paris',
-    price: 19.99,
-    category: 'mode-homme',
-    date: '2024-09-21',
-  },
-  {
-    id: 3,
-    title: 'Produit 3',
-    image: '',
-    location: 'Marseille',
-    price: 29.99,
-    category: 'mode-femme',
-    date: '2024-09-22',
-  },
-];
+import useOutsideClick from '@/hook/outSideClick';
+import { productsData } from '@/data/productsData';
+import FilterSidebar from '@/components/FilterSidebar';
 
 export default function Home() {
   const itemsPerPage = 45;
@@ -110,115 +80,28 @@ export default function Home() {
           <FaBars className="mr-2" /> Filtres et Tri
         </button>
       </div>
-
-      {/* Sidebar */}
-      <div
-        ref={sidebarRef} // Utiliser la référence sur l'élément de la sidebar
-        className={`fixed top-0 left-0 w-80 h-full bg-white shadow-md transform transition-transform duration-300 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div className="p-4">
-          {/* Filtre par catégorie */}
-          <div>
-            <label
-              htmlFor="category"
-              className="block mt-20 text-sm font-medium text-gray-700"
-            >
-              Catégorie
-            </label>
-            <select
-              id="category"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            >
-              <option value="Tous">Sélectionnez une catégorie</option>
-              <option value="immobilier">Immobilier</option>
-              <option value="vehicule">Véhicules</option>
-              <option value="electronique">Electronique</option>
-              <option value="electromenager">Electroménager</option>
-              <option value="mode-homme">Mode Homme</option>
-              <option value="mode-femme">Mode Femme</option>
-              <option value="mode-enfant">Mode Enfant</option>
-              <option value="autres">Autres</option>
-            </select>
-          </div>
-
-          {/* Filtre par prix min et max */}
-          <div className="mt-4">
-            <label
-              htmlFor="min-price"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Prix Min
-            </label>
-            <input
-              type="number"
-              id="min-price"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Min"
-            />
-          </div>
-
-          <div className="mt-4">
-            <label
-              htmlFor="max-price"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Prix Max
-            </label>
-            <input
-              type="number"
-              id="max-price"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Max"
-            />
-          </div>
-
-          {/* Tri des résultats */}
-          <div className="mt-10">
-            <label
-              htmlFor="sort"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Trier par
-            </label>
-            <select
-              id="sort"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-            >
-              <option value="">Sélectionnez une option</option>
-              <option value="Plus récent">Plus récent</option>
-              <option value="Plus ancien">Plus ancien</option>
-              <option value="Prix croissant">Prix croissant</option>
-              <option value="Prix décroissant">Prix décroissant</option>
-            </select>
-          </div>
-          <button
-            onClick={toggleSidebar}
-            className="text-gray-500 mb-4 mt-10 flex items-center"
-          >
-            <FaTimes className="mr-5" /> Fermer
-          </button>
-        </div>
-      </div>
-
+      <FilterSidebar
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        minPrice={minPrice}
+        setMinPrice={setMinPrice}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        sidebarRef={sidebarRef}
+      />
       {/* Résultats des produits */}
       <section className="container mx-auto my-8">
         <h2 className="text-2xl text-center font-bold mb-4">Annonces</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {currentItems.map((product) => (
-            <Link key={product.id} href={`/detail/${product.id}`} passHref>
+            <Link key={product.id} href={`/details/${product.id}`} passHref>
               <div className="bg-white shadow-md rounded-lg p-4 cursor-pointer">
                 <Image
-                  src={product.image}
+                  src={product.image[0]}
                   alt={product.title}
                   width={500}
                   height={500}

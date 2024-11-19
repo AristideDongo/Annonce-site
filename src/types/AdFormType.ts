@@ -18,6 +18,6 @@ export type FormData = {
     phone?: string;
     whatsapp?: string;
     location?: string;
-    photos?: string; // Ajouté pour les erreurs de photos
+    photos?: string;
   };
   
