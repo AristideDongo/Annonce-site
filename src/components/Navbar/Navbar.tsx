@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-gray-800 p-4 z-50">
+    <nav className="fixed top-0 w-full bg-[#00204A] p-4 z-50">
       <div className="container max-w-full flex justify-between items-center">
         <div className="text-white text-xl font-bold">
           <Link href="/">MonSiteAnnonces</Link>
@@ -45,28 +45,28 @@ const Navbar = () => {
             </button>
             {isCategoriesOpen && (
               <div ref={menu} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
-                <Link href="/category/immobilier" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/immobilier" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaBuilding className="mr-2" /> Immobilier
                 </Link>
-                <Link href="/category/vehicules" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/vehicules" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaCar className="mr-2" /> Véhicules
                 </Link>
-                <Link href="/category/electromenager" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/electromenager" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaRegLightbulb className="mr-2" /> Électroménager
                 </Link>
-                <Link href="/category/electronique" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/electronique" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaLaptop className="mr-2" /> Électronique
                 </Link>
-                <Link href="/category/homme" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/homme" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaTshirt className="mr-2" /> Mode Homme
                 </Link>
-                <Link href="/category/femme" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/femme" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaTshirt className="mr-2" /> Mode Femme
                 </Link>
-                <Link href="/category/enfant" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/enfant" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaChild className="mr-2" /> Mode Enfant
                 </Link>
-                <Link href="/category/autres" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/category/autres" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaEllipsisH className="mr-2" /> Autres
                 </Link>
               </div>
@@ -78,19 +78,19 @@ const Navbar = () => {
             </button>
             {isProfileOpen && (
               <div ref={menuprof} className="absolute mt-2 w-48 bg-white rounded-md shadow-lg">
-                <Link href="/profile/view" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/profile/view" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaUser className="mr-2" /> Voir Profil
                 </Link>
-                <Link href="/profile/settings" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/profile/settings" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaCog className="mr-2" /> Paramètres
                 </Link>
-                <Link href="/login" onClick={menuClose} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
+                <Link href="/login" onClick={menuClose} className=" px-4 py-2 text-gray-800 hover:bg-gray-100 flex items-center">
                   <FaSignInAlt className="mr-2" /> Se connecter
                 </Link>
               </div>
             )}
           </div>
-          <Link href="/annonce" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex items-center">
+          <Link href="/annonce" className="bg-[#ED8240] text-white px-4 py-2 rounded hover:bg-[#FD5F00] flex items-center transition duration-300">
             <FaPlus className="mr-1" /> Déposer une annonce
           </Link>
         </div>

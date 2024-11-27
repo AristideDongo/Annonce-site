@@ -1,17 +1,19 @@
 import Image from 'next/image';
 import React from 'react';
 import { productsData } from '@/data/productsData';
+import Link from 'next/link';
 
 const CategoryPage = () => {
 
   return (
-    <div className="min-h-screen font-custom bg-gray-200 p-6">
+    <div className="min-h-screen font-custom p-6">
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-extrabold text-center mb-8 mt-16 text-[#333333]">IMMOBILIER</h1>
 
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {productsData.map((annonce) => (
-            <div key={annonce.id} className="bg-white p-1 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <Link key={annonce.id} href={`/details/${annonce.id}`}>
+            <div className="bg-white p-1 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               {annonce.image && annonce.image[0] ? (
                 <div className="relative">
                   <Image
@@ -34,6 +36,8 @@ const CategoryPage = () => {
                 <p className="text-black text-lg mt-9 font-bold">{annonce.price}</p>
               </div>
             </div>
+            
+            </Link>
           ))}
         </div>
       </div>

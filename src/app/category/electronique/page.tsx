@@ -5,7 +5,7 @@ import { productsData } from '@/data/productsData';
 const CategoryPage = () => {
 
   return (
-    <div className="min-h-screen font-custom bg-gray-200 p-6">
+    <div className="min-h-screen font-custom p-6">
       <div className="container mx-auto p-4">
         <h1 className="text-4xl font-extrabold text-center mb-8 mt-16 text-[#333333]">ELECTRONIQUE</h1>
 

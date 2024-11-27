@@ -6,7 +6,7 @@ import { FaEnvelope, FaLock } from 'react-icons/fa'; // Importez les icônes
 
 const LoginPage = () => {
   return (
-    <div className="min-h-screen mt-16 bg-gray-100 text-gray-900 flex justify-center">
+    <div className="min-h-screen mt-16 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div className="mt-12 flex flex-col items-center">

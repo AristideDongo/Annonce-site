@@ -1,22 +1,7 @@
 'use client'
-
 import Image from "next/image";
 import React, { useState } from "react";
-
-interface ProfileProps {
-  user: {
-    name: string;
-    email: string;
-    phone: string;
-    profileImage: string;
-  };
-  posts: Array<{
-    id: number;
-    title: string;
-    price: string;
-    image: string;
-  }>;
-}
+import { ProfileProps } from "@/types/user";
 
 const ProfilePage: React.FC<ProfileProps> = ({ user, posts }) => {
   const [profileImage, setProfileImage] = useState(user.profileImage);

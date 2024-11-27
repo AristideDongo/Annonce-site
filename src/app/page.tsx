@@ -57,9 +57,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-teal-400 text-white py-16">
+      <section className="bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] text-white py-16">
         <div className="container mt-10 mx-auto text-center">
           <h1 className="text-4xl font-bold">Bienvenue sur AnnonceCôte</h1>
           <p className="mt-4 text-lg">
@@ -98,7 +98,7 @@ export default function Home() {
         <h2 className="text-2xl text-center font-bold mb-4">Annonces</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {currentItems.map((product) => (
-            <Link key={product.id} href={`/details/${product.id}`} passHref>
+            <Link key={product.id} href={`/details/${product.id}`} >
               <div className="bg-white shadow-md rounded-lg p-4 cursor-pointer">
                 <Image
                   src={product.image[0]}
@@ -113,7 +113,7 @@ export default function Home() {
                   {product.location}
                 </p>
                 <p className="text-green-500 font-bold mb-2">
-                  {product.price} €
+                  {product.price} FCFA
                 </p>
               </div>
             </Link>

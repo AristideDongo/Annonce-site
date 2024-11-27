@@ -21,7 +21,7 @@ export default function page({params}: ProductDetailsProps) {
         {product.image.map((image) => (
             <div key={product.id} className="w-full md:w-1/2 px-4 mb-8">
             <Image 
-            src={image[0]} 
+            src={image} 
             alt="Product"
             className="w-full h-auto rounded-lg shadow-md mb-4" />
             <div className="flex gap-4 py-4 justify-center overflow-x-auto">

@@ -31,7 +31,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black text-gray-300 py-10 font-custom relative">
+    <footer className="bg-[#00204A] text-gray-300 py-10 font-custom relative">
       <div className="container mx-auto px-4 md:px-8">
         {/* Logo */}
         <div className="flex justify-center mb-8">
@@ -73,24 +73,24 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-white">Suivez-nous</h3>
             <ul className="flex space-x-4 mb-4">
               <li>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="transition-transform duration-200 hover:scale-110">
-                  <FaFacebook className="inline-block text-xl text-white hover:text-blue-800" />
-                </a>
+                <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                  <FaFacebook size={40} className="inline-block text-xl text-white hover:text-blue-800 transition duration-300 hover:scale-90" />
+                </Link>
               </li>
               <li>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="transition-transform duration-200 hover:scale-110">
-                  <FaXTwitter className="inline-block text-xl text-white hover:text-gray-800" />
-                </a>
+                <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                  <FaXTwitter size={40} className="inline-block text-xl text-white hover:text-gray-800 transition duration-300 hover:scale-90" />
+                </Link>
               </li>
               <li>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transition-transform duration-200 hover:scale-110">
-                  <FaInstagram className="inline-block text-xl text-white hover:text-pink-700" />
-                </a>
+                <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                  <FaInstagram size={40} className="inline-block text-xl text-white hover:text-pink-600 transition duration-300 hover:scale-90" />
+                </Link>
               </li>
               <li>
-                <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="transition-transform duration-200 hover:scale-110">
-                  <FaWhatsapp className="inline-block text-xl text-white hover:text-green-700" />
-                </a>
+                <Link href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">
+                  <FaWhatsapp size={40} className="inline-block text-xl text-white hover:text-green-600 transition duration-300 hover:scale-90" />
+                </Link>
               </li>
             </ul>
             {/* Newsletter */}
@@ -104,7 +104,7 @@ const Footer = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-transparent border-2 border-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-all duration-300"
+                  className="bg-transparent border-2 border-[#00BBF0] text-white px-4 py-2 rounded-md hover:bg-[#00BBF0] transition duration-300"
                 >
                   <BsSend size={20} />
                 </button>
@@ -122,7 +122,7 @@ const Footer = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 bg-orange-600 text-white p-3 rounded-full shadow-lg border-2 transition-all duration-300 ease-in-out transform hover:scale-110 hover:bg-orange-700"
+          className="fixed bottom-4 right-4 bg-[#00204A] text-white p-3 rounded-full shadow-lg border-2 transition-all duration-300 ease-in-out transform hover:scale-90"
         >
           <FaArrowUp className="text-xl" />
         </button>
